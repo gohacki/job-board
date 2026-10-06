@@ -11,7 +11,7 @@ def load_profile():
 def has(term,text):
   return re.search(r'(?<![a-z0-9])'+re.escape(term)+r'(?![a-z0-9])',text) is not None
 
-SOFT=re.compile(r'preferred|bonus|nice to have|a plus|\bplus\b|ideally|desirable|not required',re.I)
+SOFT=re.compile(r'preferred|bonus|nice to have|even better|better if|a plus|\bplus\b|ideally|desirable|not required',re.I)
 SKIP=re.compile(r'sabbatical|best workplaces|for over|named|founded|since|history|in business|our customers|we(?:\'|’)ve|over \d+ years|more than \d+ years of (?:history|experience building)',re.I)
 YRS=re.compile(r'(\d{1,2})\s*\+?\s*(?:(?:-|–|to)\s*\d{1,2}\s*\+?\s*)?(?:years?|yrs?)\b',re.I)
 def years_required(text):
@@ -25,6 +25,18 @@ def years_required(text):
     if not re.search(r'experience|years? of|yrs? of|in a |working|building|as a',ctx,re.I):continue
     vals.append(n)
   return max(vals) if vals else None
+
+LANGS='spanish|french|german|italian|portuguese|mandarin|cantonese|chinese|japanese|korean|hindi|arabic|russian|dutch|polish|turkish|hebrew|swedish|danish|norwegian|finnish|vietnamese|thai|indonesian|tagalog|ukrainian|greek|czech'
+LANG_REQ=re.compile(r'(?:fluen(?:t|cy)|bilingual|native[- ](?:level|speaker|proficiency)|business[- ]level|professional (?:working )?proficiency|proficien(?:t|cy) in)[^.;]{0,50}?\b('+LANGS+r')\b|\b('+LANGS+r')\b[^.;]{0,30}?(?:fluen(?:t|cy)|bilingual|native[- ]speaker)',re.I)
+def languages_required(text):
+  """Non-English languages the posting requires (not 'preferred'/'a plus'). Matches 'fluent in either Spanish, French or Russian'."""
+  found=[]
+  for m in LANG_REQ.finditer(text):
+    before=text[max(0,m.start()-45):m.start()]
+    if SOFT.search(before) or SOFT.search(text[m.start():m.end()+25]):continue
+    window=text[m.start():m.end()+40]
+    found+= [x.capitalize() for x in re.findall(r'\b('+LANGS+r')\b',window,re.I)]
+  return sorted(set(found))
 
 def seniority_years(title):
   t=title.lower()
@@ -47,7 +59,7 @@ def score(title,body,mode,is_sf,prof):
   skills=[k for k in prof['skills'] if has(k,b)]
   skill_pts=min(25,sum(prof['skills'][k] for k in skills))
   if neg:skill_pts=min(skill_pts,6)
-  yrs=years_required(body or '');sen=seniority_years(title)
+  yrs=years_required(body or '');sen=seniority_years(title);langs=languages_required(body or '')
   eff=max([x for x in (yrs,sen) if x is not None],default=None)
   exp=exp_points(eff)
   early=bool(re.search(r'\b(intern|internship|co-op|student)\b',t))
@@ -59,4 +71,5 @@ def score(title,body,mode,is_sf,prof):
   # Asking 4+ years (stated) or a senior-or-above title sinks the role below everything else.
   if yrs is not None and yrs>=4:total=min(total,30)
   elif sen is not None and sen>=5:total=min(total,40)
-  return int(round(total)),yrs,dict(title=title_pts,skills=skill_pts,exp=exp,loc=loc,years=yrs,seniority=sen,matched=skills[:8],negative=neg)
+  if langs:total=min(total,30)
+  return int(round(total)),yrs,dict(title=title_pts,skills=skill_pts,exp=exp,loc=loc,years=yrs,seniority=sen,matched=skills[:8],negative=neg,languages=langs)

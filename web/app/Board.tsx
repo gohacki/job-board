@@ -1,7 +1,7 @@
 "use client";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
-type Detail = { title: number; skills: number; exp: number; loc: number; years: number | null; seniority: number | null; matched: string[]; negative: string[] };
+type Detail = { title: number; skills: number; exp: number; loc: number; years: number | null; seniority: number | null; matched: string[]; negative: string[]; languages?: string[] };
 type Role = {
   key: string; company: string; title: string; location: string; mode: "bay" | "remote"; isSf: boolean; applyUrl: string;
   at: string | null; firstSeen: string; postedAt: string | null; closed: boolean; yearsReq: number | null; score: number;
@@ -153,7 +153,7 @@ export default function Board() {
     return data.roles
       .filter((r) => (showClosed || !r.closed || marked))
       .filter((r) => r.score >= minScore)
-      .filter((r) => !hideSenior || ((r.yearsReq ?? 0) < 4 && (r.detail?.seniority ?? 0) < 5))
+      .filter((r) => !hideSenior || ((r.yearsReq ?? 0) < 4 && (r.detail?.seniority ?? 0) < 5 && !r.detail?.languages?.length))
       .filter((r) => !needle || `${r.title} ${r.company} ${r.location}`.toLowerCase().includes(needle))
       .filter((r) => status === "all" ? true : status === "todo" ? !r.appliedAt : status === "applied" ? !!r.appliedAt : !!r.contactedAt)
       .sort((a, b) => sort === "score" ? b.score - a.score || +new Date(b.at ?? 0) - +new Date(a.at ?? 0) : +new Date(b.at ?? 0) - +new Date(a.at ?? 0));
@@ -249,7 +249,7 @@ export default function Board() {
             <option value="score">Sort: best score</option>
             <option value="new">Sort: newest</option>
           </select>
-          <label className="sub"><input type="checkbox" checked={hideSenior} onChange={(e) => setHideSenior(e.target.checked)} /> hide 4+ yrs / senior</label>
+          <label className="sub"><input type="checkbox" checked={hideSenior} onChange={(e) => setHideSenior(e.target.checked)} /> hide 4+ yrs / senior / language req</label>
           <label className="sub"><input type="checkbox" checked={showClosed} onChange={(e) => setShowClosed(e.target.checked)} /> show closed</label>
         </div>
       </div>
@@ -275,6 +275,7 @@ export default function Board() {
               <div className="chips">
                 {r.isSf ? <span className="chip sf">San Francisco</span> : r.mode === "bay" ? <span className="chip ok">Bay Area</span> : <span className="chip warn">Remote</span>}
                 <span className={`chip ${r.yearsReq && r.yearsReq >= 4 ? "bad" : r.yearsReq && r.yearsReq >= 3 ? "warn" : "ok"}`}>{r.yearsReq ? `${r.yearsReq}+ yrs` : d?.seniority && d.seniority >= 5 ? "senior title" : "no yrs listed"}</span>
+                {!!d?.languages?.length && <span className="chip bad" title="The posting requires fluency in another language">needs {d.languages.join(" / ")}</span>}
                 {r.pay && <span className="chip">{r.pay}</span>}
                 {r.closed && <span className="chip bad">closed</span>}
                 {fills[r.key] && <span className={`chip ${/Filled/.test(fills[r.key].state) ? "ok" : /Opening|Loading/.test(fills[r.key].state) ? "" : "warn"}`} title={fills[r.key].message}>{fills[r.key].state}</span>}
