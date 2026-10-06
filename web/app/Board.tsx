@@ -65,6 +65,7 @@ export default function Board() {
   const [minScore, setMinScore] = useState(0);
   const [q, setQ] = useState("");
   const [showClosed, setShowClosed] = useState(false);
+  const [hideSenior, setHideSenior] = useState(false);
   const [data, setData] = useState<Resp | null>(null);
   const [err, setErr] = useState("");
   const [tick, setTick] = useState(() => Date.now());
@@ -80,11 +81,12 @@ export default function Board() {
       if (s.loc) setLoc(s.loc);
       if (s.sort) setSort(s.sort);
       if (typeof s.minScore === "number") setMinScore(s.minScore);
+      if (typeof s.hideSenior === "boolean") setHideSenior(s.hideSenior);
     } catch {}
   }, []);
   useEffect(() => {
-    try { localStorage.setItem("jb-prefs", JSON.stringify({ loc, sort, minScore })); } catch {}
-  }, [loc, sort, minScore]);
+    try { localStorage.setItem("jb-prefs", JSON.stringify({ loc, sort, minScore, hideSenior })); } catch {}
+  }, [loc, sort, minScore, hideSenior]);
 
   const wins = useMemo(() => makeWindows(tick), [tick]);
   const win = wins.find((w) => w.id === winId) ?? wins[0];
@@ -130,10 +132,11 @@ export default function Board() {
     return data.roles
       .filter((r) => (showClosed || !r.closed || marked))
       .filter((r) => r.score >= minScore)
+      .filter((r) => !hideSenior || ((r.yearsReq ?? 0) < 4 && (r.detail?.seniority ?? 0) < 5))
       .filter((r) => !needle || `${r.title} ${r.company} ${r.location}`.toLowerCase().includes(needle))
       .filter((r) => status === "all" ? true : status === "todo" ? !r.appliedAt : status === "applied" ? !!r.appliedAt : !!r.contactedAt)
       .sort((a, b) => sort === "score" ? b.score - a.score || +new Date(b.at ?? 0) - +new Date(a.at ?? 0) : +new Date(b.at ?? 0) - +new Date(a.at ?? 0));
-  }, [data, q, minScore, status, sort, showClosed, marked]);
+  }, [data, q, minScore, status, sort, showClosed, hideSenior, marked]);
 
   async function mark(r: Role, body: { applied?: boolean; contacted?: boolean; note?: string }) {
     const prev = { appliedAt: r.appliedAt, contactedAt: r.contactedAt, note: r.note };
@@ -221,6 +224,7 @@ export default function Board() {
             <option value="score">Sort: best score</option>
             <option value="new">Sort: newest</option>
           </select>
+          <label className="sub"><input type="checkbox" checked={hideSenior} onChange={(e) => setHideSenior(e.target.checked)} /> hide 4+ yrs / senior</label>
           <label className="sub"><input type="checkbox" checked={showClosed} onChange={(e) => setShowClosed(e.target.checked)} /> show closed</label>
         </div>
       </div>

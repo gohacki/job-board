@@ -10,7 +10,7 @@ A private dashboard of new Bay Area roles, scored against my resume.
 |---|---|---|
 | Role fit | 25 | title terms (AI engineer, full stack, forward deployed, ...) from `poller/profile.json`; non-engineering titles get 0 |
 | Skills | 25 | resume keywords found in the posting body |
-| Experience | 30 | largest "N+ years" in a requirement (not "preferred"), or seniority implied by the title; 0-2 yrs = 30, 3 = 24, 4 = 16, 5 = 8, 6 = 3, 7+ = 0; intern/new-grad titles are capped |
+| Experience | 30 | largest "N+ years" in a requirement (not "preferred"), or seniority implied by the title; 0-2 yrs = 30, 3 = 24, 4+ = 0; intern/new-grad titles are capped. Asking 4+ years caps the whole score at 30; a senior-or-above title with no years listed caps it at 40 |
 | Location | 20 | San Francisco 20, other Bay Area 12, remote 0 |
 
 The profile (resume keywords and years) is NOT in the repo. Locally it is `poller/profile.json` (gitignored); in CI it is the `PROFILE_JSON` secret. Without either, `profile.example.json` is used.

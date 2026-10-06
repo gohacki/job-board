@@ -35,8 +35,9 @@ def seniority_years(title):
   return None
 
 def exp_points(eff):
+  """30 for 0-2 yrs, 24 for 3, then nothing: 4+ years is not worth applying to."""
   if eff is None or eff<=2:return 30
-  return {3:24,4:16,5:8,6:3}.get(int(eff),0)
+  return 24 if eff<=3 else 0
 
 def score(title,body,mode,is_sf,prof):
   t=title.lower();b=(body or '').lower()
@@ -55,4 +56,7 @@ def score(title,body,mode,is_sf,prof):
   elif newgrad:exp=min(exp,12)
   loc=0 if mode=='remote' else 20 if is_sf else 12
   total=title_pts+skill_pts+exp+loc
+  # Asking 4+ years (stated) or a senior-or-above title sinks the role below everything else.
+  if yrs is not None and yrs>=4:total=min(total,30)
+  elif sen is not None and sen>=5:total=min(total,40)
   return int(round(total)),yrs,dict(title=title_pts,skills=skill_pts,exp=exp,loc=loc,years=yrs,seniority=sen,matched=skills[:8],negative=neg)
