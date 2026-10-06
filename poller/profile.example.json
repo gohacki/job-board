@@ -1,0 +1,17 @@
+{
+  "years_experience": 2,
+  "title_terms": {
+    "forward deployed": 25, "ai engineer": 25, "applied ai": 25, "llm": 20, "agent": 20,
+    "founding engineer": 22, "full stack": 22, "full-stack": 22, "product engineer": 20,
+    "software engineer": 20, "machine learning engineer": 16, "ml engineer": 16, "backend": 16,
+    "frontend": 14, "platform engineer": 12, "solutions engineer": 12, "data engineer": 10,
+    "developer": 10, "devops": 8, "sre": 8, "systems engineer": 6, "it engineer": 6
+  },
+  "negative_title": ["sales", "account executive", "marketing", "recruit", "counsel", "legal", "accountant",
+    "designer", "product manager", "hardware", "firmware", "silicon", "vlsi", "pcb", "mechanical",
+    "electrical", "technician", "warehouse", "payroll", "customer support", "customer success",
+    "business development", "operations manager", "writer", "paralegal", "scientist"],
+  "skills": {
+    "python": 2, "typescript": 2, "react": 2, "postgres": 2, "aws": 2, "llm": 3, "rag": 3, "agents": 3
+  }
+}

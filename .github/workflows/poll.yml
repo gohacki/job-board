@@ -1,0 +1,32 @@
+name: poll
+on:
+  schedule:
+    - cron: "*/30 * * * *"   # fast boards (Greenhouse, Ashby, Lever) every 30 minutes
+    - cron: "10 * * * *"     # slow boards (Workday, Eightfold, Phenom, HTML, ...) hourly
+  workflow_dispatch:
+    inputs:
+      tier:
+        description: fast, slow or all
+        default: fast
+concurrency:
+  group: poll-${{ github.event.schedule || 'manual' }}
+  cancel-in-progress: false
+jobs:
+  poll:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: poller/requirements.txt
+      - run: pip install -r poller/requirements.txt
+      - name: Poll
+        working-directory: poller
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          PROFILE_JSON: ${{ secrets.PROFILE_JSON }}
+          TIER: ${{ github.event.schedule == '10 * * * *' && 'slow' || github.event.inputs.tier || 'fast' }}
+        run: python poll.py --tier "$TIER"

@@ -1,0 +1,949 @@
+[
+  {
+    "company": "Verana Health",
+    "ats": "greenhouse",
+    "endpoint": "https://boards-api.greenhouse.io/v1/boards/veranahealth/jobs?content=true",
+    "existing_company": ""
+  },
+  {
+    "company": "AKASA",
+    "ats": "ashby",
+    "endpoint": "https://api.ashbyhq.com/posting-api/job-board/akasa?includeCompensation=true",
+    "existing_company": ""
+  },
+  {
+    "company": "Labelbox",
+    "ats": "greenhouse",
+    "endpoint": "https://boards-api.greenhouse.io/v1/boards/labelbox/jobs?content=true",
+    "existing_company": ""
+  },
+  {
+    "company": "Nightfall AI",
+    "ats": "ashby",
+    "endpoint": "https://api.ashbyhq.com/posting-api/job-board/nightfall-ai?includeCompensation=true",
+    "existing_company": ""
+  },
+  {
+    "company": "Middesk",
+    "ats": "ashby",
+    "endpoint": "https://api.ashbyhq.com/posting-api/job-board/middesk?includeCompensation=true",
+    "existing_company": ""
+  },
+  {
+    "company": "Tonic",
+    "ats": "lever",
+    "endpoint": "https://api.lever.co/v0/postings/tonic?mode=json",
+    "existing_company": ""
+  },
+  {
+    "company": "Alchemy",
+    "ats": "ashby",
+    "endpoint": "https://api.ashbyhq.com/posting-api/job-board/alchemy?includeCompensation=true",
+    "existing_company": ""
+  },
+  {
+    "company": "Cresta",
+    "ats": "greenhouse",
+    "endpoint": "https://boards-api.greenhouse.io/v1/boards/cresta/jobs?content=true",
+    "existing_company": ""
+  },
+  {
+    "company": "Descript",
+    "ats": "greenhouse",
+    "endpoint": "https://boards-api.greenhouse.io/v1/boards/descript/jobs?content=true",
+    "existing_company": ""
+  },
+  {
+    "company": "Commure",
+    "ats": "ashby",
+    "endpoint": "https://api.ashbyhq.com/posting-api/job-board/commure?includeCompensation=true",
+    "existing_company": ""
+  },
+  {
+    "company": "Afresh",
+    "ats": "greenhouse",
+    "endpoint": "https://boards-api.greenhouse.io/v1/boards/afresh/jobs?content=true",
+    "existing_company": ""
+  },
+  {
+    "company": "Aquabyte",
+    "ats": "lever",
+    "endpoint": "https://api.lever.co/v0/postings/aquabyte?mode=json",
+    "existing_company": ""
+  },
+  {
+    "company": "Finix",
+    "ats": "lever",
+    "endpoint": "https://api.lever.co/v0/postings/finix?mode=json",
+    "existing_company": ""
+  },
+  {
+    "company": "Dialpad",
+    "ats": "greenhouse",
+    "endpoint": "https://boards-api.greenhouse.io/v1/boards/dialpad/jobs?content=true",
+    "existing_company": ""
+  },
+  {
+    "company": "Kong",
+    "ats": "ashby",
+    "endpoint": "https://api.ashbyhq.com/posting-api/job-board/kong?includeCompensation=true",
+    "existing_company": ""
+  },
+  {
+    "company": "TaskRabbit",
+    "ats": "greenhouse",
+    "endpoint": "https://boards-api.greenhouse.io/v1/boards/taskrabbit/jobs?content=true",
+    "existing_company": ""
+  },
+  {
+    "company": "Windfall Data",
+    "ats": "lever",
+    "endpoint": "https://api.lever.co/v0/postings/windfalldata?mode=json",
+    "existing_company": ""
+  },
+  {
+    "company": "Wonderschool",
+    "ats": "greenhouse",
+    "endpoint": "https://boards-api.greenhouse.io/v1/boards/wonderschool/jobs?content=true",
+    "existing_company": ""
+  },
+  {
+    "company": "Osaro Inc",
+    "ats": "lever",
+    "endpoint": "https://api.lever.co/v0/postings/osaro?mode=json",
+    "existing_company": ""
+  },
+  {
+    "company": "Imply",
+    "ats": "greenhouse",
+    "endpoint": "https://boards-api.greenhouse.io/v1/boards/imply/jobs?content=true",
+    "existing_company": ""
+  },
+  {
+    "company": "Deepgram",
+    "ats": "ashby",
+    "endpoint": "https://api.ashbyhq.com/posting-api/job-board/deepgram?includeCompensation=true",
+    "existing_company": ""
+  },
+  {
+    "company": "Instawork",
+    "ats": "greenhouse",
+    "endpoint": "https://boards-api.greenhouse.io/v1/boards/instawork/jobs?content=true",
+    "existing_company": ""
+  },
+  {
+    "company": "NexHealth",
+    "ats": "greenhouse",
+    "endpoint": "https://boards-api.greenhouse.io/v1/boards/nexhealth/jobs?content=true",
+    "existing_company": ""
+  },
+  {
+    "company": "Handshake",
+    "ats": "ashby",
+    "endpoint": "https://api.ashbyhq.com/posting-api/job-board/handshake?includeCompensation=true",
+    "existing_company": ""
+  },
+  {
+    "company": "Graphite",
+    "ats": "ashby",
+    "endpoint": "https://api.ashbyhq.com/posting-api/job-board/graphite?includeCompensation=true",
+    "existing_company": ""
+  },
+  {
+    "company": "Front",
+    "ats": "ashby",
+    "endpoint": "https://api.ashbyhq.com/posting-api/job-board/frontcareers?includeCompensation=true",
+    "existing_company": ""
+  },
+  {
+    "company": "Envoy",
+    "ats": "ashby",
+    "endpoint": "https://api.ashbyhq.com/posting-api/job-board/envoy?includeCompensation=true",
+    "existing_company": ""
+  },
+  {
+    "company": "Carbon",
+    "ats": "greenhouse",
+    "endpoint": "https://boards-api.greenhouse.io/v1/boards/carbon/jobs?content=true",
+    "existing_company": ""
+  },
+  {
+    "company": "Poshmark",
+    "ats": "ashby",
+    "endpoint": "https://api.ashbyhq.com/posting-api/job-board/poshmark?includeCompensation=true",
+    "existing_company": ""
+  },
+  {
+    "company": "Rigetti Computing",
+    "ats": "lever",
+    "endpoint": "https://api.lever.co/v0/postings/rigetti?mode=json",
+    "existing_company": ""
+  },
+  {
+    "company": "HackerRank",
+    "ats": "greenhouse",
+    "endpoint": "https://boards-api.greenhouse.io/v1/boards/hackerrank/jobs?content=true",
+    "existing_company": ""
+  },
+  {
+    "company": "unitQ",
+    "ats": "lever",
+    "endpoint": "https://api.lever.co/v0/postings/unitq?mode=json",
+    "existing_company": ""
+  },
+  {
+    "company": "Assort Health",
+    "ats": "ashby",
+    "endpoint": "https://api.ashbyhq.com/posting-api/job-board/assorthealth?includeCompensation=true",
+    "existing_company": ""
+  },
+  {
+    "company": "Hightouch",
+    "ats": "greenhouse",
+    "endpoint": "https://boards-api.greenhouse.io/v1/boards/hightouch/jobs?content=true",
+    "existing_company": ""
+  },
+  {
+    "company": "Factory",
+    "ats": "ashby",
+    "endpoint": "https://api.ashbyhq.com/posting-api/job-board/factory?includeCompensation=true",
+    "existing_company": ""
+  },
+  {
+    "company": "Mintlify",
+    "ats": "ashby",
+    "endpoint": "https://api.ashbyhq.com/posting-api/job-board/mintlify?includeCompensation=true",
+    "existing_company": ""
+  },
+  {
+    "company": "Luminai",
+    "ats": "ashby",
+    "endpoint": "https://api.ashbyhq.com/posting-api/job-board/luminai?includeCompensation=true",
+    "existing_company": ""
+  },
+  {
+    "company": "depthfirst",
+    "ats": "ashby",
+    "endpoint": "https://api.ashbyhq.com/posting-api/job-board/depthfirst?includeCompensation=true",
+    "existing_company": ""
+  },
+  {
+    "company": "Zendesk",
+    "ats": "workday",
+    "board": "https://zendesk.wd1.myworkdayjobs.com/zendesk",
+    "endpoint": "https://zendesk.wd1.myworkdayjobs.com/wday/cxs/zendesk/zendesk/jobs",
+    "existing_company": "Zendesk"
+  },
+  {
+    "company": "Apartment List",
+    "ats": "gem",
+    "board": "https://jobs.gem.com/apartment-list",
+    "endpoint": "https://api.gem.com/job_board/v0/apartment-list/job_posts/",
+    "existing_company": "Apartment List"
+  },
+  {
+    "company": "Bigeye",
+    "ats": "gem",
+    "board": "https://jobs.gem.com/bigeye",
+    "endpoint": "https://api.gem.com/job_board/v0/bigeye/job_posts/",
+    "existing_company": "Bigeye"
+  },
+  {
+    "company": "Retool",
+    "ats": "gem",
+    "board": "https://jobs.gem.com/retool",
+    "endpoint": "https://api.gem.com/job_board/v0/retool/job_posts/",
+    "existing_company": "Retool"
+  },
+  {
+    "company": "Alation",
+    "ats": "workday",
+    "board": "https://alation.wd503.myworkdayjobs.com/ExternalSite",
+    "endpoint": "https://alation.wd503.myworkdayjobs.com/wday/cxs/alation/ExternalSite/jobs",
+    "existing_company": "Alation"
+  },
+  {
+    "company": "Zumper",
+    "ats": "rippling",
+    "board": "https://ats.rippling.com/zumper/jobs",
+    "endpoint": "https://api.rippling.com/platform/api/ats/v2/board/zumper/jobs",
+    "existing_company": "Zumper"
+  },
+  {
+    "company": "Agilent Technologies, Inc.",
+    "ats": "workday",
+    "board": "https://agilent.wd5.myworkdayjobs.com/Agilent_Careers",
+    "endpoint": "https://agilent.wd5.myworkdayjobs.com/wday/cxs/agilent/Agilent_Careers/jobs",
+    "existing_company": ""
+  },
+  {
+    "company": "Unity Software Inc.",
+    "ats": "workday",
+    "board": "https://unitytech.wd1.myworkdayjobs.com/Unity",
+    "endpoint": "https://unitytech.wd1.myworkdayjobs.com/wday/cxs/unitytech/Unity/jobs",
+    "existing_company": ""
+  },
+  {
+    "company": "LendingClub Corporation",
+    "ats": "workday",
+    "board": "https://lendingclub.wd1.myworkdayjobs.com/External",
+    "endpoint": "https://lendingclub.wd1.myworkdayjobs.com/wday/cxs/lendingclub/External/jobs",
+    "existing_company": ""
+  },
+  {
+    "company": "RingCentral, Inc.",
+    "ats": "workday",
+    "board": "https://ringcentral.wd1.myworkdayjobs.com/RingCentral_Careers",
+    "endpoint": "https://ringcentral.wd1.myworkdayjobs.com/wday/cxs/ringcentral/RingCentral_Careers/jobs",
+    "existing_company": ""
+  },
+  {
+    "company": "iRhythm Holdings, Inc.",
+    "ats": "workday",
+    "board": "https://irhythmtech.wd5.myworkdayjobs.com/irhythm",
+    "endpoint": "https://irhythmtech.wd5.myworkdayjobs.com/wday/cxs/irhythmtech/irhythm/jobs",
+    "existing_company": ""
+  },
+  {
+    "company": "Nvidia",
+    "ats": "workday",
+    "board": "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite",
+    "endpoint": "https://nvidia.wd5.myworkdayjobs.com/wday/cxs/nvidia/NVIDIAExternalCareerSite/jobs",
+    "existing_company": ""
+  },
+  {
+    "company": "Freshworks Inc.",
+    "ats": "smartrecruiters",
+    "board": "https://careers.smartrecruiters.com/Freshworks",
+    "endpoint": "https://api.smartrecruiters.com/v1/companies/Freshworks/postings",
+    "existing_company": ""
+  },
+  {
+    "company": "Gilead Sciences, Inc.",
+    "ats": "workday",
+    "board": "https://gilead.wd1.myworkdayjobs.com/gileadcareers",
+    "endpoint": "https://gilead.wd1.myworkdayjobs.com/wday/cxs/gilead/gileadcareers/jobs",
+    "existing_company": ""
+  },
+  {
+    "company": "KLA Corporation",
+    "ats": "workday",
+    "board": "https://kla.wd1.myworkdayjobs.com/Search",
+    "endpoint": "https://kla.wd1.myworkdayjobs.com/wday/cxs/kla/Search/jobs",
+    "existing_company": ""
+  },
+  {
+    "company": "Lumentum Holdings Inc.",
+    "ats": "workday",
+    "board": "https://lumentum.wd5.myworkdayjobs.com/LITE",
+    "endpoint": "https://lumentum.wd5.myworkdayjobs.com/wday/cxs/lumentum/LITE/jobs",
+    "existing_company": ""
+  },
+  {
+    "company": "Calix, Inc.",
+    "ats": "workday",
+    "board": "https://calix.wd1.myworkdayjobs.com/External",
+    "endpoint": "https://calix.wd1.myworkdayjobs.com/wday/cxs/calix/External/jobs",
+    "existing_company": ""
+  },
+  {
+    "company": "Qualys, Inc.",
+    "ats": "workday",
+    "board": "https://qualys.wd5.myworkdayjobs.com/Careers",
+    "endpoint": "https://qualys.wd5.myworkdayjobs.com/wday/cxs/qualys/Careers/jobs",
+    "existing_company": ""
+  },
+  {
+    "company": "Workday, Inc.",
+    "ats": "workday",
+    "board": "https://workday.wd5.myworkdayjobs.com/Workday",
+    "endpoint": "https://workday.wd5.myworkdayjobs.com/wday/cxs/workday/Workday/jobs",
+    "existing_company": ""
+  },
+  {
+    "company": "Cadence Design Systems, Inc.",
+    "ats": "workday",
+    "board": "https://cadence.wd1.myworkdayjobs.com/Univ_Careers",
+    "endpoint": "https://cadence.wd1.myworkdayjobs.com/wday/cxs/cadence/Univ_Careers/jobs",
+    "existing_company": ""
+  },
+  {
+    "company": "Guidewire Software, Inc.",
+    "ats": "workday",
+    "board": "https://guidewire.wd5.myworkdayjobs.com/external",
+    "endpoint": "https://guidewire.wd5.myworkdayjobs.com/wday/cxs/guidewire/external/jobs",
+    "existing_company": ""
+  },
+  {
+    "company": "eBay Inc.",
+    "ats": "workday",
+    "endpoint": "https://ebay.wd5.myworkdayjobs.com/wday/cxs/ebay/apply/jobs",
+    "board": "apply",
+    "tenant": "ebay",
+    "origin": "https://ebay.wd5.myworkdayjobs.com"
+  },
+  {
+    "company": "The RealReal, Inc.",
+    "ats": "workday",
+    "endpoint": "https://therealreal.wd1.myworkdayjobs.com/wday/cxs/therealreal/Careers/jobs",
+    "board": "Careers",
+    "tenant": "therealreal",
+    "origin": "https://therealreal.wd1.myworkdayjobs.com"
+  },
+  {
+    "company": "Adobe Inc.",
+    "ats": "workday",
+    "endpoint": "https://adobe.wd5.myworkdayjobs.com/wday/cxs/adobe/external_experienced/jobs",
+    "board": "external_experienced",
+    "tenant": "adobe",
+    "origin": "https://adobe.wd5.myworkdayjobs.com"
+  },
+  {
+    "company": "Dolby Laboratories, Inc.",
+    "ats": "eightfold",
+    "domain": "dolby.com",
+    "base": "https://jobs.dolby.com",
+    "endpoint": "https://jobs.dolby.com/api/pcsx/search?domain=dolby.com&query=&location=&start=0",
+    "board": "dolby.com"
+  },
+  {
+    "company": "Yelp Inc.",
+    "ats": "phenom",
+    "config": {
+      "widgetApiEndpoint": "https://www.yelp.careers/widgets",
+      "country": "us",
+      "deviceType": "desktop",
+      "locale": "en_us",
+      "absUrl": true,
+      "refNum": "YELPUS",
+      "cdnUrl": "https://cdn.phenompeople.com/CareerConnectResources/prod",
+      "baseUrl": "https://www.yelp.careers/us/en/",
+      "baseDomain": "https://www.yelp.careers",
+      "phenomTrackURL": "www.yelp.careers/us/en/phenomtrack.min.js",
+      "pageName": "home",
+      "siteType": "external",
+      "rootDomain": "https://www.yelp.careers",
+      "pageId": "page14"
+    },
+    "endpoint": "https://www.yelp.careers/widgets",
+    "board": "YELPUS"
+  },
+  {
+    "company": "Resolve.ai",
+    "ats": "ashby",
+    "endpoint": "https://api.ashbyhq.com/posting-api/job-board/resolveai?includeCompensation=true"
+  },
+  {
+    "company": "AfterQuery",
+    "ats": "ashby",
+    "endpoint": "https://api.ashbyhq.com/posting-api/job-board/afterquery?includeCompensation=true"
+  },
+  {
+    "company": "CodeRabbit",
+    "ats": "ashby",
+    "endpoint": "https://api.ashbyhq.com/posting-api/job-board/coderabbit?includeCompensation=true"
+  },
+  {
+    "company": "Candid Health",
+    "ats": "ashby",
+    "endpoint": "https://api.ashbyhq.com/posting-api/job-board/candidhealth?includeCompensation=true"
+  },
+  {
+    "company": "Rillet",
+    "ats": "ashby",
+    "endpoint": "https://api.ashbyhq.com/posting-api/job-board/rillet?includeCompensation=true"
+  },
+  {
+    "company": "Midi Health",
+    "ats": "greenhouse",
+    "endpoint": "https://boards-api.greenhouse.io/v1/boards/midihealth/jobs?content=true"
+  },
+  {
+    "company": "Waabi",
+    "ats": "lever",
+    "endpoint": "https://api.lever.co/v0/postings/waabi?mode=json"
+  },
+  {
+    "company": "Prosper",
+    "ats": "lever",
+    "endpoint": "https://api.lever.co/v0/postings/prosper?mode=json"
+  },
+  {
+    "company": "LiveKit",
+    "ats": "ashby",
+    "endpoint": "https://api.ashbyhq.com/posting-api/job-board/livekit?includeCompensation=true"
+  },
+  {
+    "company": "Tavus",
+    "ats": "ashby",
+    "endpoint": "https://api.ashbyhq.com/posting-api/job-board/tavus?includeCompensation=true"
+  },
+  {
+    "company": "HomeLight",
+    "ats": "greenhouse",
+    "endpoint": "https://boards-api.greenhouse.io/v1/boards/homelight/jobs?content=true"
+  },
+  {
+    "company": "Zip",
+    "ats": "ashby",
+    "endpoint": "https://api.ashbyhq.com/posting-api/job-board/zip?includeCompensation=true"
+  },
+  {
+    "company": "Nooks AI",
+    "ats": "ashby",
+    "endpoint": "https://api.ashbyhq.com/posting-api/job-board/nooks?includeCompensation=true"
+  },
+  {
+    "company": "Plenful",
+    "ats": "ashby",
+    "endpoint": "https://api.ashbyhq.com/posting-api/job-board/plenful?includeCompensation=true"
+  },
+  {
+    "company": "Numeral",
+    "ats": "ashby",
+    "endpoint": "https://api.ashbyhq.com/posting-api/job-board/numeral?includeCompensation=true"
+  },
+  {
+    "company": "Firecrawl",
+    "ats": "ashby",
+    "endpoint": "https://api.ashbyhq.com/posting-api/job-board/firecrawl?includeCompensation=true"
+  },
+  {
+    "company": "Column",
+    "ats": "ashby",
+    "endpoint": "https://api.ashbyhq.com/posting-api/job-board/column?includeCompensation=true"
+  },
+  {
+    "company": "Luma AI",
+    "ats": "ashby",
+    "endpoint": "https://api.ashbyhq.com/posting-api/job-board/lumaai?includeCompensation=true"
+  },
+  {
+    "company": "Simular",
+    "ats": "ashby",
+    "endpoint": "https://api.ashbyhq.com/posting-api/job-board/simular?includeCompensation=true"
+  },
+  {
+    "company": "Bobyard",
+    "ats": "ashby",
+    "endpoint": "https://api.ashbyhq.com/posting-api/job-board/bobyard?includeCompensation=true"
+  },
+  {
+    "company": "Scanner",
+    "ats": "greenhouse",
+    "endpoint": "https://boards-api.greenhouse.io/v1/boards/scanner/jobs?content=true"
+  },
+  {
+    "company": "Obsidian Security",
+    "ats": "greenhouse",
+    "endpoint": "https://boards-api.greenhouse.io/v1/boards/obsidiansecurity/jobs?content=true"
+  },
+  {
+    "company": "Kognitos",
+    "ats": "ashby",
+    "endpoint": "https://api.ashbyhq.com/posting-api/job-board/kognitos?includeCompensation=true"
+  },
+  {
+    "company": "Unlearn.AI",
+    "ats": "ashby",
+    "endpoint": "https://api.ashbyhq.com/posting-api/job-board/unlearn?includeCompensation=true"
+  },
+  {
+    "company": "Orkes",
+    "ats": "greenhouse",
+    "endpoint": "https://boards-api.greenhouse.io/v1/boards/orkes/jobs?content=true"
+  },
+  {
+    "company": "Digital NEST",
+    "ats": "publichtml",
+    "kind": "jazzhr",
+    "endpoint": "https://digitalnest.org/careers/"
+  },
+  {
+    "company": "Common Sense Media",
+    "ats": "publichtml",
+    "kind": "inline-paycom",
+    "endpoint": "https://www.commonsensemedia.org/about-us/were-hiring",
+    "bound_host": "www.paycomonline.net"
+  },
+  {
+    "company": "Education Analytics",
+    "ats": "publichtml",
+    "kind": "inline-paylocity",
+    "endpoint": "https://www.edanalytics.org/careers"
+  },
+  {
+    "company": "Freedom of the Press Foundation",
+    "ats": "publichtml",
+    "kind": "teamtailor-widget",
+    "endpoint": "https://freedom.press/careers/",
+    "api_origin": "https://api.na.teamtailor.com"
+  },
+  {
+    "company": "Aiven",
+    "ats": "publichtml",
+    "kind": "inline-aiven",
+    "endpoint": "https://aiven.io/careers/job"
+  },
+  {
+    "company": "Tyk",
+    "ats": "publichtml",
+    "kind": "inline-tyk",
+    "endpoint": "https://tyk.io/tyk-current-vacancies/"
+  },
+  {
+    "company": "fabric",
+    "ats": "rippling",
+    "board": "https://ats.rippling.com/fabric-inc/jobs",
+    "endpoint": "https://api.rippling.com/platform/api/ats/v2/board/fabric-inc/jobs"
+  },
+  {
+    "company": "Yotpo",
+    "ats": "publichtml",
+    "kind": "inline-yotpo",
+    "endpoint": "https://www.yotpo.com/careers/"
+  },
+  {
+    "company": "Akeneo",
+    "ats": "publichtml",
+    "kind": "teamtailor-html",
+    "endpoint": "https://careers.akeneo.com/jobs"
+  },
+  {
+    "company": "RudderStack",
+    "ats": "rippling",
+    "board": "https://ats.rippling.com/rudderstack-careers/jobs",
+    "endpoint": "https://api.rippling.com/platform/api/ats/v2/board/rudderstack-careers/jobs"
+  },
+  {
+    "company": "Tealium",
+    "ats": "workday",
+    "board": "Careers",
+    "origin": "https://tealium.wd1.myworkdayjobs.com",
+    "endpoint": "https://tealium.wd1.myworkdayjobs.com/wday/cxs/tealium/Careers/jobs"
+  },
+  {
+    "company": "Amperity",
+    "ats": "greenhouse",
+    "board": "amperity",
+    "endpoint": "https://boards-api.greenhouse.io/v1/boards/amperity/jobs?content=true"
+  },
+  {
+    "company": "Rokt",
+    "ats": "workable",
+    "board": "157387",
+    "endpoint": "https://apply.workable.com/api/v1/widget/accounts/157387?origin=embed",
+    "verify_endpoint": "https://apply.workable.com/api/v3/accounts/rokt/jobs"
+  },
+  {
+    "company": "Accelerate Change (Accelerate Action)",
+    "ats": "publichtml",
+    "board": "448159-accelerate-action-inc",
+    "kind": "trinethire",
+    "endpoint": "https://app.trinethire.com/companies/448159-accelerate-action-inc/jobs"
+  },
+  {
+    "company": "Prefect",
+    "ats": "ashby",
+    "board": "prefect",
+    "endpoint": "https://api.ashbyhq.com/posting-api/job-board/prefect?includeCompensation=true"
+  },
+  {
+    "company": "Sanity",
+    "ats": "ashby",
+    "board": "sanity",
+    "endpoint": "https://api.ashbyhq.com/posting-api/job-board/sanity?includeCompensation=true"
+  },
+  {
+    "company": "Bloomreach",
+    "ats": "greenhouse",
+    "board": "bloomreach",
+    "endpoint": "https://boards-api.greenhouse.io/v1/boards/bloomreach/jobs?content=true"
+  },
+  {
+    "company": "Soda Data",
+    "ats": "workable",
+    "board": "soda-data-nv",
+    "endpoint": "https://www.workable.com/api/accounts/soda-data-nv?details=true",
+    "verify_endpoint": "https://apply.workable.com/api/v3/accounts/soda-data-nv/jobs"
+  },
+  {
+    "company": "Xata",
+    "ats": "publichtml",
+    "kind": "inline-xata",
+    "board": "xata-careers",
+    "endpoint": "https://xata.io/careers"
+  },
+  {
+    "company": "Optimizely",
+    "ats": "publichtml",
+    "kind": "successfactors-html",
+    "board": "optimizely-search",
+    "endpoint": "https://careers.optimizely.com/search/"
+  },
+  {
+    "company": "Help Scout",
+    "ats": "ashby",
+    "board": "helpscout",
+    "endpoint": "https://api.ashbyhq.com/posting-api/job-board/helpscout?includeCompensation=true"
+  },
+  {
+    "company": "Kustomer",
+    "ats": "ashby",
+    "board": "Kustomer",
+    "endpoint": "https://api.ashbyhq.com/posting-api/job-board/Kustomer?includeCompensation=true"
+  },
+  {
+    "company": "CallRail",
+    "ats": "greenhouse",
+    "board": "callrail",
+    "endpoint": "https://boards-api.greenhouse.io/v1/boards/callrail/jobs?content=true"
+  },
+  {
+    "company": "Talkdesk",
+    "ats": "greenhouse",
+    "board": "talkdesk2",
+    "endpoint": "https://boards-api.greenhouse.io/v1/boards/talkdesk2/jobs?content=true"
+  },
+  {
+    "company": "LivePerson",
+    "ats": "greenhouse",
+    "board": "liveperson",
+    "endpoint": "https://boards-api.greenhouse.io/v1/boards/liveperson/jobs?content=true"
+  },
+  {
+    "company": "DuckDuckGo",
+    "ats": "ashby",
+    "board": "duck-duck-go",
+    "endpoint": "https://duckduckgo.com/jobs.js"
+  },
+  {
+    "company": "Buffer",
+    "ats": "ashby",
+    "board": "buffer",
+    "endpoint": "https://api.ashbyhq.com/posting-api/job-board/buffer?includeCompensation=true"
+  },
+  {
+    "company": "Ghost",
+    "ats": "publichtml",
+    "kind": "homerun-inline",
+    "board": "ghost-own-homerun",
+    "endpoint": "https://careers.ghost.org/"
+  },
+  {
+    "company": "Tuta",
+    "ats": "publichtml",
+    "kind": "tuta-inline",
+    "board": "tuta-own-careers",
+    "endpoint": "https://tuta.com/jobs"
+  },
+  {
+    "company": "ustwo",
+    "ats": "publichtml",
+    "kind": "ustwo-inline",
+    "board": "ustwo-own-hiboblinks",
+    "endpoint": "https://ustwo.com/join-us/"
+  },
+  {
+    "company": "Instrument",
+    "ats": "lever",
+    "board": "instrument",
+    "endpoint": "https://api.lever.co/v0/postings/instrument?mode=json"
+  },
+  {
+    "company": "Work & Co",
+    "ats": "publichtml",
+    "kind": "workco-inline",
+    "board": "workco-own-careers",
+    "endpoint": "https://work.co/careers/"
+  },
+  {
+    "company": "Focus Lab",
+    "ats": "publichtml",
+    "kind": "bamboo-embed",
+    "board": "focuslab-own-bamboo",
+    "endpoint": "https://www.focuslab.agency/careers",
+    "origin": "https://focuslab.bamboohr.com",
+    "feed": "https://focuslab.bamboohr.com/jobs/embed2.php?version=1.0.0&format=json"
+  },
+  {
+    "company": "FutureHouse",
+    "ats": "publichtml",
+    "kind": "futurehouse-shared-ashby",
+    "board": "futurehouse-own-sharededison",
+    "endpoint": "https://www.futurehouse.org/careers",
+    "feed": "https://api.ashbyhq.com/posting-api/job-board/Edison%20Scientific?includeCompensation=true"
+  },
+  {
+    "company": "Huge",
+    "ats": "greenhouse",
+    "board": "hugeinc",
+    "endpoint": "https://boards-api.greenhouse.io/v1/boards/hugeinc/jobs?content=true"
+  },
+  {
+    "company": "Modus Create",
+    "ats": "greenhouse",
+    "board": "moduscreate",
+    "endpoint": "https://boards-api.greenhouse.io/v1/boards/moduscreate/jobs?content=true"
+  },
+  {
+    "company": "Fundbox",
+    "ats": "publichtml",
+    "kind": "fundbox-inline",
+    "board": "fundbox-own-inline",
+    "endpoint": "https://fundbox.com/careers/"
+  },
+  {
+    "company": "Prezi",
+    "ats": "publichtml",
+    "board": "prezi",
+    "endpoint": "https://prezi.com/jobs/",
+    "kind": "bamboo-list",
+    "feed": "https://prezi.bamboohr.com/careers/list",
+    "origin": "https://prezi.bamboohr.com"
+  },
+  {
+    "company": "Sauce Labs",
+    "ats": "greenhouse",
+    "board": "saucelabs",
+    "endpoint": "https://boards-api.greenhouse.io/v1/boards/saucelabs/jobs?content=true"
+  },
+  {
+    "company": "Kiva",
+    "ats": "greenhouse",
+    "board": "kivaorg",
+    "endpoint": "https://boards-api.greenhouse.io/v1/boards/kivaorg/jobs?content=true"
+  },
+  {
+    "company": "Open Up Resources",
+    "ats": "workable",
+    "board": "open-up-resources",
+    "endpoint": "https://apply.workable.com/api/v1/widget/accounts/open-up-resources?details=true",
+    "verify_endpoint": "https://apply.workable.com/api/v3/accounts/open-up-resources/jobs"
+  },
+  {
+    "company": "New Classrooms",
+    "ats": "publichtml",
+    "kind": "newclassrooms-inline",
+    "board": "newclassrooms-own-inline",
+    "endpoint": "https://newclassrooms.org/careers/"
+  },
+  {
+    "company": "ChurnZero",
+    "ats": "publichtml",
+    "kind": "hrmdirect-html",
+    "board": "churnzero",
+    "endpoint": "https://churnzero.hrmdirect.com/employment/job-openings.php?nohd&search=1&projStart=1"
+  },
+  {
+    "company": "Productboard",
+    "ats": "publichtml",
+    "board": "productboard-own-inline",
+    "kind": "productboard-inline",
+    "endpoint": "https://www.productboard.com/careers/open-positions/"
+  },
+  {
+    "company": "Miro",
+    "ats": "publichtml",
+    "kind": "miro-nextdata",
+    "endpoint": "https://miro.com/careers/open-positions/",
+    "origin": "https://miro.com"
+  },
+  {
+    "company": "Marigold (Campaign Monitor)",
+    "ats": "workday",
+    "endpoint": "https://campaignmonitor.wd5.myworkdayjobs.com/wday/cxs/campaignmonitor/marigold/jobs",
+    "origin": "https://campaignmonitor.wd5.myworkdayjobs.com",
+    "board": "marigold"
+  },
+  {
+    "company": "PLOS",
+    "ats": "publichtml",
+    "kind": "plos-eu-html",
+    "endpoint": "https://job-boards.eu.greenhouse.io/plos"
+  },
+  {
+    "company": "KQED",
+    "ats": "publichtml",
+    "kind": "jazzhr",
+    "endpoint": "https://kqed.applytojob.com/apply"
+  },
+  {
+    "company": "PBS",
+    "ats": "workday",
+    "endpoint": "https://vhr-pbs.wd115.myworkdayjobs.com/wday/cxs/vhr_pbs/PBSCareers/jobs",
+    "origin": "https://vhr-pbs.wd115.myworkdayjobs.com",
+    "board": "PBSCareers"
+  },
+  {
+    "company": "Readdle",
+    "ats": "publichtml",
+    "kind": "greenhouse-eu-html",
+    "endpoint": "https://job-boards.eu.greenhouse.io/readdle70",
+    "cards_only": true
+  },
+  {
+    "company": "Tubi",
+    "ats": "publichtml",
+    "kind": "greenhouse-multiboard",
+    "endpoint": "https://corporate.tubitv.com/careers/",
+    "feeds": [
+      "https://boards-api.greenhouse.io/v1/boards/tubitv/jobs?content=true",
+      "https://boards-api.greenhouse.io/v1/boards/tubi-canada/jobs?content=true"
+    ]
+  },
+  {
+    "company": "Betterworks",
+    "ats": "publichtml",
+    "kind": "trinethire-table",
+    "endpoint": "https://app.trinethire.com/companies/294644-betterworks-systems-inc/jobs",
+    "path_prefix": "/companies/294644-betterworks-systems-inc/jobs/"
+  },
+  {
+    "company": "FreshBooks",
+    "ats": "gem",
+    "board": "https://jobs.gem.com/freshbooks",
+    "endpoint": "https://api.gem.com/job_board/v0/freshbooks/job_posts/"
+  },
+  {
+    "company": "Shopware",
+    "kind": "recruitee-offers",
+    "endpoint": "https://careers.shopware.com/en/",
+    "origin": "https://shopwareag.recruitee.com",
+    "feed": "https://shopwareag.recruitee.com/api/offers/"
+  },
+  {
+    "company": "Tidio",
+    "ats": "publichtml",
+    "kind": "recruitee-direct-offers",
+    "endpoint": "https://careers.tidio.com/open-roles",
+    "origin": "https://tidiocareer.recruitee.com",
+    "feed": "https://tidiocareer.recruitee.com/api/offers/"
+  },
+  {
+    "company": "BrowserStack",
+    "ats": "workday",
+    "endpoint": "https://browserstack.wd3.myworkdayjobs.com/wday/cxs/browserstack/External/jobs",
+    "origin": "https://browserstack.wd3.myworkdayjobs.com",
+    "board": "External"
+  },
+  {
+    "company": "Teamwork",
+    "ats": "publichtml",
+    "kind": "teamwork-table",
+    "endpoint": "https://www.teamwork.com/careers/"
+  },
+  {
+    "company": "Intermedia",
+    "ats": "publichtml",
+    "kind": "pinpoint-postings",
+    "endpoint": "https://intermedia.pinpointhq.com/"
+  },
+  {
+    "company": "Genesys",
+    "ats": "workday",
+    "endpoint": "https://genesys.wd1.myworkdayjobs.com/wday/cxs/genesys/Genesys/jobs",
+    "origin": "https://genesys.wd1.myworkdayjobs.com",
+    "board": "Genesys"
+  }
+]

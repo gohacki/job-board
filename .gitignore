@@ -1,0 +1,10 @@
+.venv/
+node_modules/
+.next/
+.env*
+!.env.example
+poller/profile.json
+__pycache__/
+*.pyc
+.vercel/
+*.tsbuildinfo
