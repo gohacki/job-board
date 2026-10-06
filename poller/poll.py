@@ -39,7 +39,9 @@ def posted_at(j,seen):
 
 def apply_url(r,j,url):
   if r['ATS']=='greenhouse' and j.get('id') and r.get('Board slug'):
-    return f"https://job-boards.greenhouse.io/{r['Board slug']}/jobs/{j['id']}"
+    # The embed form is the same application page, but it does not redirect to a company's own careers
+    # site (Pinterest and others do), so the Application Helper extension can still run on it.
+    return f"https://job-boards.greenhouse.io/embed/job_app?for={r['Board slug']}&token={j['id']}"
   if r['ATS'] in('ashby','lever') and j.get('applyUrl'):return j['applyUrl']
   return url
 
