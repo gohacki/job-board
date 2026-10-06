@@ -78,7 +78,8 @@ def main():
   limit=int(a[a.index('--limit')+1]) if '--limit' in a else None
   rows=list(csv.DictReader(open(P/'config'/'employers.csv')));cfgs=json.load(open(P/'config'/'reader-configs.json'))
   enabled={r['Company'].lower() for r in rows if r['Daily enabled']=='Yes'}
-  todo=[r for r in rows if r['Daily enabled']=='Yes' and (not only or r['Company'].lower() in only)
+  blocked={l.strip().lower() for l in open(P/'blocklist.txt') if l.strip() and not l.startswith('#')}
+  todo=[r for r in rows if r['Daily enabled']=='Yes' and r['Company'].lower() not in blocked and (not only or r['Company'].lower() in only)
         and (tier=='all' or (tier=='fast')==(r['ATS'] in FAST))]
   if limit:todo=todo[:limit]
   prof=load_profile()
