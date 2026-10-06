@@ -73,6 +73,8 @@ export default function Board() {
   const [open, setOpen] = useState<string | null>(null);
   const [noteFor, setNoteFor] = useState<string | null>(null);
   const [descs, setDescs] = useState<Record<string, string>>({});
+  const [ext, setExt] = useState<string | null>(null);
+  const [fills, setFills] = useState<Record<string, { state: string; message: string }>>({});
   const known = useRef<{ q: string; keys: Set<string> } | null>(null);
 
   useEffect(() => {
@@ -87,6 +89,25 @@ export default function Board() {
   useEffect(() => {
     try { localStorage.setItem("jb-prefs", JSON.stringify({ loc, sort, minScore, hideSenior })); } catch {}
   }, [loc, sort, minScore, hideSenior]);
+
+  // Application Helper extension bridge (extension 1.6.0+). Absent extension => plain links only.
+  useEffect(() => {
+    const onMsg = (e: MessageEvent) => {
+      if (e.source !== window || e.origin !== location.origin || e.data?.source !== "application-helper") return;
+      const m = e.data;
+      if (m.type === "ready") setExt(m.version);
+      if (m.type === "result") setFills((f) => ({ ...f, [m.id]: { state: m.state, message: m.message } }));
+      if (m.type === "accepted" && m.error) setErr(`Application Helper: ${m.error}`);
+    };
+    window.addEventListener("message", onMsg);
+    window.postMessage({ source: "job-board", type: "ping" }, location.origin);
+    return () => window.removeEventListener("message", onMsg);
+  }, []);
+  const prefill = (rs: Role[]) => {
+    const jobs = rs.map((r) => ({ id: r.key, company: r.company, title: r.title, url: r.applyUrl }));
+    setFills((f) => ({ ...f, ...Object.fromEntries(jobs.map((j) => [j.id, { state: "Opening…", message: "" }])) }));
+    window.postMessage({ source: "job-board", type: "fill", jobs }, location.origin);
+  };
 
   const wins = useMemo(() => makeWindows(tick), [tick]);
   const win = wins.find((w) => w.id === winId) ?? wins[0];
@@ -193,6 +214,10 @@ export default function Board() {
           </div>
         </div>
         <div className="row">
+          {ext && (
+            <button className="btn small" title="Opens the 5 best not-yet-applied roles in a new window and prefills each one"
+              onClick={() => prefill(roles.filter((r) => !r.appliedAt && !r.closed && /ashbyhq\.com|greenhouse\.io|lever\.co/.test(r.applyUrl)).slice(0, 5))}>Prefill top 5</button>
+          )}
           <button className="btn small" onClick={exportHelper} title="Download a daily-refresh JSON for the Application Helper extension (top 40 not-yet-applied roles in this view)">Export for Application Helper</button>
           <button className="btn small" onClick={async () => { await fetch("/api/logout", { method: "POST" }); location.href = "/login"; }}>Sign out</button>
         </div>
@@ -252,6 +277,7 @@ export default function Board() {
                 <span className={`chip ${r.yearsReq && r.yearsReq >= 4 ? "bad" : r.yearsReq && r.yearsReq >= 3 ? "warn" : "ok"}`}>{r.yearsReq ? `${r.yearsReq}+ yrs` : d?.seniority && d.seniority >= 5 ? "senior title" : "no yrs listed"}</span>
                 {r.pay && <span className="chip">{r.pay}</span>}
                 {r.closed && <span className="chip bad">closed</span>}
+                {fills[r.key] && <span className={`chip ${/Filled/.test(fills[r.key].state) ? "ok" : /Opening|Loading/.test(fills[r.key].state) ? "" : "warn"}`} title={fills[r.key].message}>{fills[r.key].state}</span>}
                 {r.contactedAt && <span className="chip ok">contacted</span>}
                 {r.appliedAt && <span className="chip ok">applied</span>}
               </div>
@@ -266,7 +292,14 @@ export default function Board() {
               )}
               <div className="time">{r.postedAt ? `Posted ${fmt(r.postedAt)}` : `First seen ${fmt(r.firstSeen)}`} · {ago(r.postedAt ?? r.firstSeen, tick)}</div>
               <div className="actions">
-                <a className="apply" href={r.applyUrl} target="_blank" rel="noopener noreferrer">Open application ↗</a>
+                {ext && /ashbyhq\.com|greenhouse\.io|lever\.co/.test(r.applyUrl) ? (
+                  <>
+                    <button className="apply" onClick={() => prefill([r])}>Open &amp; prefill</button>
+                    <a className="btn small" href={r.applyUrl} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>Open only ↗</a>
+                  </>
+                ) : (
+                  <a className="apply" href={r.applyUrl} target="_blank" rel="noopener noreferrer">Open application ↗</a>
+                )}
                 <button className={`btn small tog ${r.appliedAt ? "on" : ""}`} onClick={() => mark(r, { applied: !r.appliedAt })}>{r.appliedAt ? "✓ Applied" : "Mark applied"}</button>
                 <button className={`btn small tog ${r.contactedAt ? "on" : ""}`} onClick={() => (r.contactedAt ? mark(r, { contacted: false }) : setNoteFor(noteFor === r.key ? null : r.key))}>{r.contactedAt ? "✓ Contacted" : "Contacted"}</button>
                 <button className="btn small" onClick={() => toggleDesc(r)}>{open === r.key ? "Hide" : "Details"}</button>

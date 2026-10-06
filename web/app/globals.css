@@ -47,6 +47,7 @@ input[type=range]{accent-color:var(--accent);width:130px}
 .bar i{display:block;height:5px;border-radius:3px;background:var(--line);overflow:hidden}
 .bar i b{display:block;height:100%;background:var(--accent)}
 .actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:auto;align-items:center}
+button.apply{border:0;cursor:pointer;font:inherit;font-weight:600;font-size:13.5px}
 .apply{background:var(--accent);color:var(--bg);text-decoration:none;border-radius:8px;padding:6px 12px;font-weight:600;font-size:13.5px}
 .tog.on{background:var(--accentbg);color:var(--accent);border-color:var(--accent)}
 .note{display:flex;gap:6px}
