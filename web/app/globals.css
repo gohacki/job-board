@@ -60,3 +60,8 @@ button.apply{border:0;cursor:pointer;font:inherit;font-weight:600;font-size:13.5
 .loginbox input{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:9px 12px}
 .err{color:var(--bad);margin:0;font-size:14px}
 @media(max-width:560px){.grid{grid-template-columns:1fr}}
+.others{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:5px}
+.others li{display:grid;grid-template-columns:30px 1fr;gap:2px 8px;align-items:baseline;font-size:13px}
+.others li .time{grid-column:2}
+.mini{font-weight:700;font-size:12px;text-align:center;border:2px solid var(--line);border-radius:99px;color:var(--mute)}
+.mini.hi{border-color:var(--accent);color:var(--accent)}.mini.mid{border-color:var(--warn);color:var(--warn)}

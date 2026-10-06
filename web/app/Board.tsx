@@ -66,6 +66,8 @@ export default function Board() {
   const [q, setQ] = useState("");
   const [showClosed, setShowClosed] = useState(false);
   const [hideSenior, setHideSenior] = useState(false);
+  const [dedupe, setDedupe] = useState(true);
+  const [expanded, setExpanded] = useState<Set<string>>(new Set());
   const [data, setData] = useState<Resp | null>(null);
   const [err, setErr] = useState("");
   const [tick, setTick] = useState(() => Date.now());
@@ -84,11 +86,12 @@ export default function Board() {
       if (s.sort) setSort(s.sort);
       if (typeof s.minScore === "number") setMinScore(s.minScore);
       if (typeof s.hideSenior === "boolean") setHideSenior(s.hideSenior);
+      if (typeof s.dedupe === "boolean") setDedupe(s.dedupe);
     } catch {}
   }, []);
   useEffect(() => {
-    try { localStorage.setItem("jb-prefs", JSON.stringify({ loc, sort, minScore, hideSenior })); } catch {}
-  }, [loc, sort, minScore, hideSenior]);
+    try { localStorage.setItem("jb-prefs", JSON.stringify({ loc, sort, minScore, hideSenior, dedupe })); } catch {}
+  }, [loc, sort, minScore, hideSenior, dedupe]);
 
   // Application Helper extension bridge (extension 1.6.0+). Absent extension => plain links only.
   useEffect(() => {
@@ -159,6 +162,17 @@ export default function Board() {
       .sort((a, b) => sort === "score" ? b.score - a.score || +new Date(b.at ?? 0) - +new Date(a.at ?? 0) : +new Date(b.at ?? 0) - +new Date(a.at ?? 0));
   }, [data, q, minScore, status, sort, showClosed, hideSenior, marked]);
 
+  // One card per company: its best-scoring role (newest breaks ties). The rest are tucked under it.
+  type Card = Role & { others: Role[] };
+  const cards: Card[] = useMemo(() => {
+    if (!dedupe) return roles.map((r) => ({ ...r, others: [] }));
+    const best = (a: Role, b: Role) => b.score - a.score || +new Date(b.at ?? 0) - +new Date(a.at ?? 0);
+    const by = new Map<string, Role[]>();
+    for (const r of roles) by.set(r.company, [...(by.get(r.company) ?? []), r]);
+    const out = [...by.values()].map((g) => { const [top, ...others] = [...g].sort(best); return { ...top, others }; });
+    return out.sort((a, b) => sort === "score" ? b.score - a.score || +new Date(b.at ?? 0) - +new Date(a.at ?? 0) : +new Date(b.at ?? 0) - +new Date(a.at ?? 0));
+  }, [roles, dedupe, sort]);
+
   async function mark(r: Role, body: { applied?: boolean; contacted?: boolean; note?: string }) {
     const prev = { appliedAt: r.appliedAt, contactedAt: r.contactedAt, note: r.note };
     const patch = (v: Partial<Role>) => setData((d) => d && { ...d, roles: d.roles.map((x) => (x.key === r.key ? { ...x, ...v } : x)) });
@@ -209,7 +223,7 @@ export default function Board() {
         <div>
           <h1>Job board</h1>
           <div className="sub">
-            {data ? `${roles.length} roles shown · ${applied} applied · ${contacted} contacted` : "Loading…"}
+            {data ? `${dedupe ? `${cards.length} companies · ` : ""}${roles.length} roles · ${applied} applied · ${contacted} contacted` : "Loading…"}
             {data?.lastPoll && ` · last poll ${ago(data.lastPoll.finished_at, tick)}${data.lastPoll.boards_failed ? ` (${data.lastPoll.boards_failed} boards failed)` : ""}`}
           </div>
         </div>
@@ -249,6 +263,7 @@ export default function Board() {
             <option value="score">Sort: best score</option>
             <option value="new">Sort: newest</option>
           </select>
+          <label className="sub"><input type="checkbox" checked={dedupe} onChange={(e) => setDedupe(e.target.checked)} /> one role per company</label>
           <label className="sub"><input type="checkbox" checked={hideSenior} onChange={(e) => setHideSenior(e.target.checked)} /> hide 4+ yrs / senior / language req</label>
           <label className="sub"><input type="checkbox" checked={showClosed} onChange={(e) => setShowClosed(e.target.checked)} /> show closed</label>
         </div>
@@ -257,10 +272,10 @@ export default function Board() {
       {err && <div className="newbar" style={{ background: "var(--badbg)", color: "var(--bad)" }}>{err}</div>}
       {fresh.size > 0 && <div className="newbar">{fresh.size} new role{fresh.size > 1 ? "s" : ""} arrived while you were here (outlined below)</div>}
 
-      {data && roles.length === 0 && <div className="empty">Nothing matches. Try a wider day range or lower the minimum score.</div>}
+      {data && cards.length === 0 && <div className="empty">Nothing matches. Try a wider day range or lower the minimum score.</div>}
 
       <div className="grid">
-        {roles.map((r) => {
+        {cards.map((r) => {
           const d = r.detail;
           const cls = r.score >= 70 ? "hi" : r.score >= 45 ? "mid" : "lo";
           return (
@@ -312,6 +327,24 @@ export default function Board() {
                 </form>
               )}
               {r.contactedAt && r.note && <div className="loc">Contacted: {r.note}</div>}
+              {r.others.length > 0 && (
+                <div>
+                  <button className="btn small" onClick={() => setExpanded((x) => { const n = new Set(x); n.has(r.key) ? n.delete(r.key) : n.add(r.key); return n; })}>
+                    {expanded.has(r.key) ? "Hide" : "+"} {r.others.length} more at {r.company}
+                  </button>
+                  {expanded.has(r.key) && (
+                    <ul className="others">
+                      {r.others.map((o) => (
+                        <li key={o.key}>
+                          <span className={`mini ${o.score >= 70 ? "hi" : o.score >= 45 ? "mid" : ""}`}>{o.score}</span>
+                          <a href={o.applyUrl} target="_blank" rel="noopener noreferrer">{o.title}</a>
+                          <span className="time">{o.isSf ? "SF" : o.mode === "remote" ? "Remote" : "Bay"}{o.yearsReq ? ` · ${o.yearsReq}+ yrs` : ""}{o.appliedAt ? " · applied" : ""}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              )}
               {open === r.key && <div className="desc">{descs[r.key] ?? "Loading…"}</div>}
             </article>
           );
