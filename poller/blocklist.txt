@@ -1,2 +1,3 @@
 # Companies never shown on the board (one per line, case-insensitive). Rows are not stored.
 OpenAI
+Roblox
