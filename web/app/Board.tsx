@@ -1,13 +1,13 @@
 "use client";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
-type Detail = { title: number; skills: number; exp: number; loc: number; years: number | null; seniority: number | null; matched: string[]; negative: string[]; languages?: string[] };
+type Detail = { title?: number; skills?: number; exp?: number; fit?: number; ai?: boolean; verdict?: string; loc: number; years: number | null; seniority?: number | null; matched?: string[]; negative?: string[]; languages?: string[] };
 type Role = {
   key: string; company: string; title: string; location: string; mode: "bay" | "remote"; isSf: boolean; applyUrl: string;
   at: string | null; firstSeen: string; postedAt: string | null; closed: boolean; yearsReq: number | null; score: number;
-  detail: Detail | null; pay: string | null; snippet: string | null; appliedAt: string | null; contactedAt: string | null; note: string | null;
+  detail: Detail | null; aiVerdict: string | null; aiReason: string | null; hidden: boolean; pay: string | null; snippet: string | null; appliedAt: string | null; contactedAt: string | null; note: string | null;
 };
-type Resp = { now: string; lastPoll: { finished_at: string; tier: string; boards_ok: number; boards_failed: number } | null; appliedUrls: string[]; appliedCompanies: string[]; roles: Role[] };
+type Resp = { now: string; lastPoll: { finished_at: string; tier: string; boards_ok: number; boards_failed: number } | null; appliedUrls: string[]; appliedCompanies: string[]; hiddenCount: number; roles: Role[] };
 
 const TZ = "America/Los_Angeles";
 
@@ -66,6 +66,7 @@ export default function Board() {
   const [q, setQ] = useState("");
   const [showClosed, setShowClosed] = useState(false);
   const [hideSenior, setHideSenior] = useState(false);
+  const [showHidden, setShowHidden] = useState(false);
   const [dedupe, setDedupe] = useState(true);
   const [expanded, setExpanded] = useState<Set<string>>(new Set());
   const [data, setData] = useState<Resp | null>(null);
@@ -119,11 +120,12 @@ export default function Board() {
   const marked = status === "applied" || status === "contacted";
   const query = useMemo(() => {
     const p = new URLSearchParams({ loc });
+    if (showHidden) p.set("hidden", "1");
     if (marked) p.set("marked", "1");
     else { p.set("since", new Date(win.since).toISOString()); if (win.until) p.set("until", new Date(win.until).toISOString()); }
     return p.toString();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loc, marked, win.since, win.until]);
+  }, [loc, marked, showHidden, win.since, win.until]);
 
   const load = useCallback(async () => {
     try {
@@ -159,7 +161,7 @@ export default function Board() {
     return data.roles
       .filter((r) => (showClosed || !r.closed || marked))
       .filter((r) => r.score >= minScore)
-      .filter((r) => !hideSenior || ((r.yearsReq ?? 0) < 4 && (r.detail?.seniority ?? 0) < 5 && !r.detail?.languages?.length))
+      .filter((r) => !hideSenior || ((r.yearsReq ?? 0) < 4 && (r.detail?.seniority ?? 0) < 5 && r.aiVerdict !== "stretch" && !r.detail?.languages?.length))
       .filter((r) => !needle || `${r.title} ${r.company} ${r.location}`.toLowerCase().includes(needle))
       .filter((r) => status === "all" ? true : status === "todo" ? !r.appliedAt : status === "applied" ? !!r.appliedAt : !!r.contactedAt)
       .sort((a, b) => sort === "score" ? b.score - a.score || +new Date(b.at ?? 0) - +new Date(a.at ?? 0) : +new Date(b.at ?? 0) - +new Date(a.at ?? 0));
@@ -268,6 +270,7 @@ export default function Board() {
           </select>
           <label className="sub"><input type="checkbox" checked={dedupe} onChange={(e) => setDedupe(e.target.checked)} /> one role per company</label>
           <label className="sub"><input type="checkbox" checked={hideSenior} onChange={(e) => setHideSenior(e.target.checked)} /> hide 4+ yrs / senior / language req</label>
+          <label className="sub" title="Roles Claude judged not to be software jobs for you"><input type="checkbox" checked={showHidden} onChange={(e) => setShowHidden(e.target.checked)} /> show filtered out{data?.hiddenCount ? ` (${data.hiddenCount})` : ""}</label>
           <label className="sub"><input type="checkbox" checked={showClosed} onChange={(e) => setShowClosed(e.target.checked)} /> show closed</label>
         </div>
       </div>
@@ -288,7 +291,7 @@ export default function Board() {
                   <h2 className="title">{r.title}</h2>
                   <div className="co">{r.company}</div>
                 </div>
-                <div className={`score ${cls}`} title={d ? `Role fit ${d.title}/25 + skills ${d.skills}/25 + experience ${d.exp}/30 + location ${d.loc}/20` : ""}>{r.score}</div>
+                <div className={`score ${cls}`} title={d ? (d.ai ? `Claude fit ${d.fit}/100 x 0.8 + location ${d.loc}/20` : `Unscored by Claude yet. Rules: role ${d.title}/25 + skills ${d.skills}/25 + experience ${d.exp}/30 + location ${d.loc}/20`) : ""}>{r.score}</div>
               </div>
               <div className="chips">
                 {r.isSf ? <span className="chip sf">San Francisco</span> : r.mode === "bay" ? <span className="chip ok">Bay Area</span> : <span className="chip warn">Remote</span>}
@@ -301,10 +304,10 @@ export default function Board() {
                 {r.appliedAt && <span className="chip ok">applied</span>}
               </div>
               <div className="loc">{r.location}</div>
-              {r.snippet && <p className="snip">{r.snippet}</p>}
+              {r.aiReason ? <p className="snip" title="Claude's read of the full posting">{r.aiReason}</p> : r.snippet && <p className="snip">{r.snippet}</p>}
               {d && (
                 <div className="bars">
-                  {([["Role", d.title + d.skills, 50], ["Years", d.exp, 30], ["Where", d.loc, 20]] as const).map(([l, v, mx]) => (
+                  {((d.ai ? [["Fit", Math.round((d.fit ?? 0) * 0.8), 80], ["Where", d.loc, 20]] : [["Role", (d.title ?? 0) + (d.skills ?? 0), 50], ["Years", d.exp ?? 0, 30], ["Where", d.loc, 20]]) as [string, number, number][]).map(([l, v, mx]) => (
                     <div className="bar" key={l}><span>{l}</span><i><b style={{ width: `${(v / mx) * 100}%` }} /></i><span>{v}/{mx}</span></div>
                   ))}
                 </div>

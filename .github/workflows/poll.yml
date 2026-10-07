@@ -30,3 +30,17 @@ jobs:
           PROFILE_JSON: ${{ secrets.PROFILE_JSON }}
           TIER: ${{ github.event.schedule == '10 * * * *' && 'slow' || github.event.inputs.tier || 'fast' }}
         run: python poll.py --tier "$TIER"
+      - name: Score new roles with Claude
+        # Needs a Claude login for CI: CLAUDE_CODE_OAUTH_TOKEN (from `claude setup-token`) or ANTHROPIC_API_KEY.
+        # Without either, this step does nothing and roles keep their rule-based score and filter.
+        continue-on-error: true
+        working-directory: poller
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          PROFILE_JSON: ${{ secrets.PROFILE_JSON }}
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          if [ -z "$CLAUDE_CODE_OAUTH_TOKEN$ANTHROPIC_API_KEY" ]; then echo "No Claude credentials set; skipping AI scoring."; exit 0; fi
+          npm install -g @anthropic-ai/claude-code >/dev/null 2>&1
+          python ai_score.py --max 60 --days 3 --workers 2

@@ -64,14 +64,18 @@ def normalize(r,js,seen,enabled,cfgs,prof):
     pa=posted_at(j,seen)
     pay=PAY.search(body)
     out.append(dict(key=key,company=r['Company'],ats=r['ATS'],title=title,location=loc,mode=mode,is_sf=sf,
-      apply_url=apply_url(r,j,url) or url,posted_at=pa,years_req=yrs,score=sc,score_detail=detail,
-      pay=pay.group(0) if pay else None,snippet=snippet(body),description=body[:6000],source_endpoint=r['Public board endpoint']))
+      apply_url=apply_url(r,j,url) or url,posted_at=pa,years_req=yrs,score=sc,score_detail=detail,hidden=detail['title']==0,
+      pay=pay.group(0) if pay else None,snippet=snippet(body),description=body[:12000],source_endpoint=r['Public board endpoint']))
   return out
 
-UPSERT="""INSERT INTO listings(key,company,ats,title,location,mode,is_sf,apply_url,posted_at,first_seen,last_seen,baseline,effective_at,closed,years_req,score,score_detail,pay,snippet,description,source_endpoint)
-VALUES(%(key)s,%(company)s,%(ats)s,%(title)s,%(location)s,%(mode)s,%(is_sf)s,%(apply_url)s,%(posted_at)s,%(seen)s,%(seen)s,%(baseline)s,%(effective_at)s,false,%(years_req)s,%(score)s,%(score_detail)s,%(pay)s,%(snippet)s,%(description)s,%(source_endpoint)s)
+UPSERT="""INSERT INTO listings(key,company,ats,title,location,mode,is_sf,apply_url,posted_at,first_seen,last_seen,baseline,effective_at,closed,years_req,score,score_detail,pay,snippet,description,source_endpoint,hidden)
+VALUES(%(key)s,%(company)s,%(ats)s,%(title)s,%(location)s,%(mode)s,%(is_sf)s,%(apply_url)s,%(posted_at)s,%(seen)s,%(seen)s,%(baseline)s,%(effective_at)s,false,%(years_req)s,%(score)s,%(score_detail)s,%(pay)s,%(snippet)s,%(description)s,%(source_endpoint)s,%(hidden)s)
 ON CONFLICT(key) DO UPDATE SET title=EXCLUDED.title,location=EXCLUDED.location,mode=EXCLUDED.mode,is_sf=EXCLUDED.is_sf,apply_url=EXCLUDED.apply_url,
- last_seen=EXCLUDED.last_seen,closed=false,years_req=EXCLUDED.years_req,score=EXCLUDED.score,score_detail=EXCLUDED.score_detail,pay=EXCLUDED.pay,snippet=EXCLUDED.snippet,description=EXCLUDED.description"""
+ last_seen=EXCLUDED.last_seen,closed=false,pay=EXCLUDED.pay,snippet=EXCLUDED.snippet,description=EXCLUDED.description,
+ years_req=CASE WHEN listings.ai_scored_at IS NULL THEN EXCLUDED.years_req ELSE listings.years_req END,
+ score=CASE WHEN listings.ai_scored_at IS NULL THEN EXCLUDED.score ELSE listings.score END,
+ score_detail=CASE WHEN listings.ai_scored_at IS NULL THEN EXCLUDED.score_detail ELSE listings.score_detail END,
+ hidden=CASE WHEN listings.ai_scored_at IS NULL THEN EXCLUDED.hidden ELSE listings.hidden END"""
 
 def main():
   a=sys.argv[1:]

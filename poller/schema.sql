@@ -47,3 +47,10 @@ CREATE TABLE IF NOT EXISTS poll_runs(
   boards_failed int,
   listings_seen int
 );
+
+ALTER TABLE listings ADD COLUMN IF NOT EXISTS ai_fit int;
+ALTER TABLE listings ADD COLUMN IF NOT EXISTS ai_verdict text;
+ALTER TABLE listings ADD COLUMN IF NOT EXISTS ai_reason text;
+ALTER TABLE listings ADD COLUMN IF NOT EXISTS ai_scored_at timestamptz;
+ALTER TABLE listings ADD COLUMN IF NOT EXISTS hidden boolean NOT NULL DEFAULT false;
+CREATE INDEX IF NOT EXISTS listings_unscored ON listings(effective_at DESC) WHERE ai_scored_at IS NULL;
