@@ -77,6 +77,7 @@ export default function Board() {
   const [descs, setDescs] = useState<Record<string, string>>({});
   const [ext, setExt] = useState<string | null>(null);
   const [fills, setFills] = useState<Record<string, { state: string; message: string }>>({});
+  const loadRef = useRef<() => void>(() => {});
   const known = useRef<{ q: string; keys: Set<string> } | null>(null);
 
   useEffect(() => {
@@ -99,6 +100,7 @@ export default function Board() {
       if (e.source !== window || e.origin !== location.origin || e.data?.source !== "application-helper") return;
       const m = e.data;
       if (m.type === "ready") setExt(m.version);
+      if (m.type === "applied") loadRef.current();
       if (m.type === "result") setFills((f) => ({ ...f, [m.id]: { state: m.state, message: m.message } }));
       if (m.type === "accepted" && m.error) setErr(`Application Helper: ${m.error}`);
     };
@@ -142,6 +144,7 @@ export default function Board() {
     } catch (e) { setErr(`Could not load roles (${(e as Error).message})`); }
   }, [query]);
 
+  loadRef.current = load;
   useEffect(() => { load(); }, [load]);
   useEffect(() => {
     const id = setInterval(load, 60_000);
