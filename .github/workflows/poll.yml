@@ -1,20 +1,21 @@
 name: poll
 on:
   schedule:
-    - cron: "*/30 * * * *"   # fast boards (Greenhouse, Ashby, Lever) every 30 minutes
-    - cron: "10 * * * *"     # slow boards (Workday, Eightfold, Phenom, HTML, ...) hourly
+    # GitHub drops and delays scheduled runs, so this only needs to fire now and then: each run is a
+    # long job that polls every 30 minutes by itself (poller/loop.sh) and the next run queues behind it.
+    - cron: "17 */3 * * *"
   workflow_dispatch:
     inputs:
       tier:
-        description: fast, slow or all
-        default: fast
+        description: "loop (default), or a single round: fast, slow or all"
+        default: loop
 concurrency:
-  group: poll-${{ github.event.schedule || 'manual' }}
+  group: poll-loop
   cancel-in-progress: false
 jobs:
   poll:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 350
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -23,24 +24,24 @@ jobs:
           cache: pip
           cache-dependency-path: poller/requirements.txt
       - run: pip install -r poller/requirements.txt
-      - name: Poll
-        working-directory: poller
+      - name: Install Claude Code (only when credentials exist)
         env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          PROFILE_JSON: ${{ secrets.PROFILE_JSON }}
-          TIER: ${{ github.event.schedule == '10 * * * *' && 'slow' || github.event.inputs.tier || 'fast' }}
-        run: python poll.py --tier "$TIER"
-      - name: Score new roles with Claude
-        # Needs a Claude login for CI: CLAUDE_CODE_OAUTH_TOKEN (from `claude setup-token`) or ANTHROPIC_API_KEY.
-        # Without either, this step does nothing and roles keep their rule-based score and filter.
-        continue-on-error: true
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          if [ -n "$CLAUDE_CODE_OAUTH_TOKEN$ANTHROPIC_API_KEY" ]; then npm install -g @anthropic-ai/claude-code >/dev/null 2>&1; fi
+      - name: Poll
         working-directory: poller
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           PROFILE_JSON: ${{ secrets.PROFILE_JSON }}
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          MODE: ${{ github.event.inputs.tier || 'loop' }}
         run: |
-          if [ -z "$CLAUDE_CODE_OAUTH_TOKEN$ANTHROPIC_API_KEY" ]; then echo "No Claude credentials set; skipping AI scoring."; exit 0; fi
-          npm install -g @anthropic-ai/claude-code >/dev/null 2>&1
-          python ai_score.py --max 60 --days 3 --workers 2
+          if [ "$MODE" = "loop" ]; then
+            ./loop.sh
+          else
+            python poll.py --tier "$MODE"
+            if [ -n "$CLAUDE_CODE_OAUTH_TOKEN$ANTHROPIC_API_KEY" ]; then python ai_score.py --max 60 --days 3 --workers 2; fi
+          fi
