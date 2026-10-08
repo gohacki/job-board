@@ -1,7 +1,7 @@
 "use client";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
-type Detail = { title?: number; skills?: number; exp?: number; fit?: number; ai?: boolean; verdict?: string; loc: number; years: number | null; seniority?: number | null; matched?: string[]; negative?: string[]; languages?: string[] };
+type Detail = { title?: number; skills?: number; exp?: number; fit?: number; ai?: boolean; verdict?: string; loc: number; years: number | null; seniority?: number | null; matched?: string[]; negative?: string[]; languages?: string[]; gap?: string; gaps?: string[] };
 type Role = {
   key: string; company: string; title: string; location: string; mode: "bay" | "remote"; isSf: boolean; applyUrl: string;
   at: string | null; firstSeen: string; postedAt: string | null; closed: boolean; yearsReq: number | null; score: number;
@@ -296,6 +296,8 @@ export default function Board() {
               <div className="chips">
                 {r.isSf ? <span className="chip sf">San Francisco</span> : r.mode === "bay" ? <span className="chip ok">Bay Area</span> : <span className="chip warn">Remote</span>}
                 <span className={`chip ${r.yearsReq && r.yearsReq >= 4 ? "bad" : r.yearsReq && r.yearsReq >= 3 ? "warn" : "ok"}`}>{r.yearsReq ? `${r.yearsReq}+ yrs` : d?.seniority && d.seniority >= 5 ? "senior title" : "no yrs listed"}</span>
+                {d && !d.ai && <span className="chip" title="Claude has not read this posting yet; the score is a rough rule-based guess">unscored</span>}
+                {!!d?.gaps?.length && <span className="chip warn" title="Required skills your resume does not show">gap: {d.gaps.join(", ")}</span>}
                 {!!d?.languages?.length && <span className="chip bad" title="The posting requires fluency in another language">needs {d.languages.join(" / ")}</span>}
                 {r.pay && <span className="chip">{r.pay}</span>}
                 {r.closed && <span className="chip bad">closed</span>}
