@@ -17,7 +17,8 @@ export async function GET(req: NextRequest) {
   const rows = await sql`
     SELECT l.key, l.company, l.title, l.location, l.mode, l.is_sf, l.apply_url, l.effective_at, l.first_seen, l.posted_at,
            l.closed, l.years_req, l.score, l.score_detail, l.pay, l.snippet, l.hidden, l.ai_verdict, l.ai_reason,
-           m.applied_at, m.contacted_at, m.contact_note
+           m.applied_at, m.contacted_at, m.contact_note,
+           EXISTS (SELECT 1 FROM resumes rs WHERE rs.key = l.key) AS tailored
     FROM listings l LEFT JOIN marks m ON m.key = l.key
     WHERE l.mode = ANY(${modes})
       AND (${showHidden || marked} OR NOT l.hidden)
@@ -42,7 +43,7 @@ export async function GET(req: NextRequest) {
       key: r.key, company: r.company, title: r.title, location: r.location, mode: r.mode, isSf: r.is_sf, applyUrl: r.apply_url,
       at: r.effective_at, firstSeen: r.first_seen, postedAt: r.posted_at, closed: r.closed, yearsReq: r.years_req,
       score: r.score, detail: r.score_detail, pay: r.pay, snippet: r.snippet, hidden: r.hidden, aiVerdict: r.ai_verdict, aiReason: r.ai_reason,
-      appliedAt: r.applied_at, contactedAt: r.contacted_at, note: r.contact_note,
+      appliedAt: r.applied_at, contactedAt: r.contacted_at, note: r.contact_note, tailored: r.tailored,
     })),
   });
 }

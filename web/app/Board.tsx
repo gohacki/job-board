@@ -5,7 +5,7 @@ type Detail = { title?: number; skills?: number; exp?: number; fit?: number; ai?
 type Role = {
   key: string; company: string; title: string; location: string; mode: "bay" | "remote"; isSf: boolean; applyUrl: string;
   at: string | null; firstSeen: string; postedAt: string | null; closed: boolean; yearsReq: number | null; score: number;
-  detail: Detail | null; aiVerdict: string | null; aiReason: string | null; hidden: boolean; pay: string | null; snippet: string | null; appliedAt: string | null; contactedAt: string | null; note: string | null;
+  detail: Detail | null; aiVerdict: string | null; aiReason: string | null; hidden: boolean; tailored?: boolean; pay: string | null; snippet: string | null; appliedAt: string | null; contactedAt: string | null; note: string | null;
 };
 type Resp = { now: string; lastPoll: { finished_at: string; tier: string; boards_ok: number; boards_failed: number } | null; appliedUrls: string[]; appliedCompanies: string[]; hiddenCount: number; roles: Role[] };
 
@@ -296,6 +296,7 @@ export default function Board() {
               <div className="chips">
                 {r.isSf ? <span className="chip sf">San Francisco</span> : r.mode === "bay" ? <span className="chip ok">Bay Area</span> : <span className="chip warn">Remote</span>}
                 <span className={`chip ${r.yearsReq && r.yearsReq >= 4 ? "bad" : r.yearsReq && r.yearsReq >= 3 ? "warn" : "ok"}`}>{r.yearsReq ? `${r.yearsReq}+ yrs` : d?.seniority && d.seniority >= 5 ? "senior title" : "no yrs listed"}</span>
+                {r.tailored && <a className="chip ok" href={`/api/resume/${r.key}`} target="_blank" rel="noopener noreferrer" title="A resume tailored to this posting is ready. The extension uploads it when you click Open & prefill. Click to view the PDF." style={{ textDecoration: "none" }}>tailored resume ✓</a>}
                 {d && !d.ai && <span className="chip" title="Claude has not read this posting yet; the score is a rough rule-based guess">unscored</span>}
                 {!!d?.gaps?.length && <span className="chip warn" title="Required skills your resume does not show">gap: {d.gaps.join(", ")}</span>}
                 {!!d?.languages?.length && <span className="chip bad" title="The posting requires fluency in another language">needs {d.languages.join(" / ")}</span>}

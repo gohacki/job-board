@@ -54,3 +54,12 @@ ALTER TABLE listings ADD COLUMN IF NOT EXISTS ai_reason text;
 ALTER TABLE listings ADD COLUMN IF NOT EXISTS ai_scored_at timestamptz;
 ALTER TABLE listings ADD COLUMN IF NOT EXISTS hidden boolean NOT NULL DEFAULT false;
 CREATE INDEX IF NOT EXISTS listings_unscored ON listings(effective_at DESC) WHERE ai_scored_at IS NULL;
+
+CREATE TABLE IF NOT EXISTS resumes(
+  key text PRIMARY KEY REFERENCES listings(key) ON DELETE CASCADE,
+  filename text,
+  pdf bytea NOT NULL,
+  changes jsonb,
+  model_cost numeric,
+  created_at timestamptz DEFAULT now()
+);
