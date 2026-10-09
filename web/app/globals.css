@@ -65,3 +65,8 @@ button.apply{border:0;cursor:pointer;font:inherit;font-weight:600;font-size:13.5
 .others li .time{grid-column:2}
 .mini{font-weight:700;font-size:12px;text-align:center;border:2px solid var(--line);border-radius:99px;color:var(--mute)}
 .mini.hi{border-color:var(--accent);color:var(--accent)}.mini.mid{border-color:var(--warn);color:var(--warn)}
+.row label{font-size:14px}
+nav.row a{text-decoration:none}
+main label{display:inline-block;margin:4px 0}
+main input[type=text]{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:6px 10px}
+main textarea{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:8px;margin:6px 0}

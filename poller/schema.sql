@@ -63,3 +63,12 @@ CREATE TABLE IF NOT EXISTS resumes(
   model_cost numeric,
   created_at timestamptz DEFAULT now()
 );
+
+ALTER TABLE listings ADD COLUMN IF NOT EXISTS source text;
+ALTER TABLE listings ADD COLUMN IF NOT EXISTS level text;
+ALTER TABLE listings ADD COLUMN IF NOT EXISTS notes text;
+CREATE TABLE IF NOT EXISTS rate_limits(
+  bucket text PRIMARY KEY,
+  count int NOT NULL,
+  window_start timestamptz NOT NULL
+);
